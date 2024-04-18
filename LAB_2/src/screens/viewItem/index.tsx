@@ -1,14 +1,19 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity, Text, View, TextInput, StyleSheet } from "react-native";
+import { useRoute } from "@react-navigation/native";
+
+import { Task } from "../home";
 
 export default function Item () {
-    
+
+  const {params} = useRoute<any>();
+
   return (
     <>
       <View style={stylist.container}>
-        <Text style={stylist.title}>Detalhes da Tarefa</Text>
+        <Text style={stylist.title}>{params.titulo}</Text>
         <View style={stylist.textControl}>
-          <Text style={stylist.text}>jjjj</Text>
+          <Text style={stylist.text}>{params.descricao}</Text>
         </View>
         <View style={stylist.buttonControl}>
             <TouchableOpacity 

@@ -1,14 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import { TouchableOpacity, Text, View, TextInput, StyleSheet } from "react-native";
-
-interface Task {
-  title: String;
-  text: String;
-}
+import { useNavigation } from "@react-navigation/native";
 
 
 export default function NewItem () {
+
+  const navigator = useNavigation();
 
   const [titulo, setTitulo] = useState("")
   const [descricao, setDescricao] = useState("")
@@ -24,8 +22,9 @@ export default function NewItem () {
     const dados = resposta ? JSON.parse(resposta) : [];
     const dados2 = [...dados, novoDado];
     await AsyncStorage.setItem("@Agenda:tarefa", JSON.stringify(dados2));
-    console.log(JSON.stringify(dados2))
-}
+    // console.log(JSON.stringify(dados2));
+    navigator.goBack();
+  }
 
 
   return (
@@ -48,7 +47,8 @@ export default function NewItem () {
             autoCapitalize='none'
             style={stylist.input}
             textAlignVertical="top"
-            numberOfLines={3}
+            numberOfLines={5}
+            multiline
             placeholder='Escreva aqui a tarefa'
             placeholderTextColor={'#000'}
             onChangeText={(e) => setDescricao(e)}
@@ -58,24 +58,24 @@ export default function NewItem () {
           </TextInput>
         </View>
         <View style={stylist.buttons}>
-            <View style={stylist.buttonControl}>
-                <TouchableOpacity 
-                    onPress={addTask}
-                >
-                    <View style={stylist.save}>
-                        <Text style={stylist.textButton}>Guardar</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={stylist.buttonControl}>
-                <TouchableOpacity 
-                    onPress={() => {}}
-                >
-                    <View style={stylist.cancel}>
-                        <Text style={stylist.textButton}>Cancelar</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+          <View style={stylist.buttonControl}>
+            <TouchableOpacity 
+                onPress={addTask}
+            >
+              <View style={stylist.save}>
+                <Text style={stylist.textButton}>Guardar</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={stylist.buttonControl}>
+            <TouchableOpacity 
+              onPress={() => {navigator.goBack()}}
+            >
+              <View style={stylist.cancel}>
+                <Text style={stylist.textButton}>Cancelar</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </>

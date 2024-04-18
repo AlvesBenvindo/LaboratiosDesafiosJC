@@ -12,8 +12,8 @@ export default function Routes () {
     <NavigationContainer>
       <navStack.Navigator>
         <navStack.Screen name="Home" component={Home} options={{ headerShown: false }}/>
-        <navStack.Screen name="NewItem" component={NewItem} />
-        <navStack.Screen name="ViewItem" component={Item} />
+        <navStack.Screen name="NewItem" component={NewItem}  options={{ headerShown: false }}/>
+        <navStack.Screen name="ViewItem" component={Item}  options={{ headerShown: false }}/>
       </navStack.Navigator>
     </NavigationContainer>
   );
